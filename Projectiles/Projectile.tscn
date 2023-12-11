@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpei35txn33em"]
+
+[ext_resource type="Script" path="res://Projectiles/Projectile.cs" id="1_3l1ns"]
+[ext_resource type="Texture2D" uid="uid://bujpq6v6jgb7s" path="res://Prototyping/circle.png" id="2_oddcx"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8rh5c"]
+friction = 0.0
+rough = true
+bounce = 0.9
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4yuf"]
+radius = 6.0
+
+[node name="Projectile" type="RigidBody2D"]
+position = Vector2(62, 4)
+collision_layer = 2
+mass = 0.5
+inertia = 1.0
+physics_material_override = SubResource("PhysicsMaterial_8rh5c")
+script = ExtResource("1_3l1ns")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_g4yuf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.568627, 0.160784, 0.0980392, 1)
+scale = Vector2(0.094, 0.094)
+texture = ExtResource("2_oddcx")
