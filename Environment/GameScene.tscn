@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://fp50oge7mmok"]
+[gd_scene load_steps=12 format=3 uid="uid://fp50oge7mmok"]
 
 [ext_resource type="Script" path="res://Entities/Character.cs" id="1_agbse"]
 [ext_resource type="Texture2D" uid="uid://bujpq6v6jgb7s" path="res://Prototyping/circle.png" id="2_bpx5s"]
@@ -6,6 +6,7 @@
 [ext_resource type="TileSet" uid="uid://cddaauhutvrg2" path="res://Environment/SimpleTileset.tres" id="4_e26yh"]
 [ext_resource type="Script" path="res://Entities/Thrower.cs" id="4_wi8qg"]
 [ext_resource type="PackedScene" uid="uid://dpei35txn33em" path="res://Projectiles/Projectile.tscn" id="5_1ip58"]
+[ext_resource type="Script" path="res://Entities/Repeller.cs" id="6_ulh5d"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ggiee"]
 friction = 0.0
@@ -14,6 +15,8 @@ friction = 0.0
 radius = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4i15b"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bbxi8"]
 
 [node name="GameScene" type="Node2D"]
 
@@ -26,6 +29,7 @@ lock_rotation = true
 script = ExtResource("1_agbse")
 _baseAcceleration = 1200.0
 _maxSpeed = 300.0
+_velocityZeroSnap = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Character"]
 scale = Vector2(0.25, 0.25)
@@ -47,6 +51,14 @@ _projectile = ExtResource("5_1ip58")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Character/Hitbox"]
 shape = SubResource("CircleShape2D_4i15b")
+debug_color = Color(1, 1, 1, 0.419608)
+
+[node name="Repeller" type="Area2D" parent="Character"]
+script = ExtResource("6_ulh5d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character/Repeller"]
+position = Vector2(20, 0)
+shape = SubResource("CapsuleShape2D_bbxi8")
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1

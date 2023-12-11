@@ -5,37 +5,44 @@ public partial class PlayerController : Node2D
 	[Export] private Character _character;
 	[Export] private Thrower _thrower;
 
+	private Vector2 _cursorPosition;
 	private Vector2 _moveDirection;
+
+	private void MovementInput(InputEventKey eventKey)
+	{
+		Vector2 inputDirection = eventKey.PhysicalKeycode switch
+		{
+			Key.W => Vector2.Up,
+			Key.A => Vector2.Left,
+			Key.S => Vector2.Down,
+			Key.D => Vector2.Right,
+			_ => Vector2.Zero,
+		};
+
+		if (eventKey.IsPressed() && !eventKey.IsEcho())
+			_moveDirection += inputDirection;
+		else if (eventKey.IsReleased())
+			_moveDirection -= inputDirection;
+	}
 
 	public override void _Input(InputEvent @event)
 	{
-		#region Movement Input
-		if (@event.IsActionPressed("move_up", false, true))
-			_moveDirection += Vector2.Up;
-		if (@event.IsActionPressed("move_down", false, true))
-			_moveDirection += Vector2.Down;
-		if (@event.IsActionPressed("move_left", false, true))
-			_moveDirection += Vector2.Left;
-		if (@event.IsActionPressed("move_right", false, true))
-			_moveDirection += Vector2.Right;
+		if (@event is InputEventKey eventKey)
+			MovementInput(eventKey);
 
-		if (@event.IsActionReleased("move_up", true))
-			_moveDirection -= Vector2.Up;
-		if (@event.IsActionReleased("move_down", true))
-			_moveDirection -= Vector2.Down;
-		if (@event.IsActionReleased("move_left", true))
-			_moveDirection -= Vector2.Left;
-		if (@event.IsActionReleased("move_right", true))
-			_moveDirection -= Vector2.Right;
-		#endregion
+		_moveDirection = _moveDirection.Clamp(-Vector2.One, Vector2.One);
 
 		// Move direction is not normalized to avoid breaking input.
 		_character.TargetDirection = _moveDirection;
 
 		if (@event.IsActionPressed("throw", false, true))
 		{
-			_thrower.Throw(Vector2.Right * 800);
+			_thrower.Throw((_cursorPosition - _thrower.GlobalPosition).Normalized());
 		}
 	}
 
+	public override void _Process(double delta)
+	{
+		_cursorPosition = GetGlobalMousePosition();
+	}
 }
