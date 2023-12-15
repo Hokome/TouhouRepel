@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://esbumj7d248t"]
+
+[ext_resource type="Script" path="res://Entities/Thrower.cs" id="1_8h5ra"]
+[ext_resource type="PackedScene" uid="uid://dpei35txn33em" path="res://Projectiles/Projectile.tscn" id="2_nqluv"]
+
+[node name="Thrower" type="Node2D"]
+script = ExtResource("1_8h5ra")
+_projectile = ExtResource("2_nqluv")

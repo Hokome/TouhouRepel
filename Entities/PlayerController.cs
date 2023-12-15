@@ -2,47 +2,74 @@ using Godot;
 
 public partial class PlayerController : Node2D
 {
-	[Export] private Character _character;
-	[Export] private Thrower _thrower;
+    [Export] private Repeller _repeller;
+    [Export] private Thrower _thrower;
+    private Character _character;
 
-	private Vector2 _cursorPosition;
-	private Vector2 _moveDirection;
+    public bool Frozen { get; set; }
 
-	private void MovementInput(InputEventKey eventKey)
-	{
-		Vector2 inputDirection = eventKey.PhysicalKeycode switch
-		{
-			Key.W => Vector2.Up,
-			Key.A => Vector2.Left,
-			Key.S => Vector2.Down,
-			Key.D => Vector2.Right,
-			_ => Vector2.Zero,
-		};
+    private Vector2 _cursorPosition;
+    private Vector2 _moveDirection;
+    private float _cooldown;
 
-		if (eventKey.IsPressed() && !eventKey.IsEcho())
-			_moveDirection += inputDirection;
-		else if (eventKey.IsReleased())
-			_moveDirection -= inputDirection;
-	}
+    public Vector2 Aim => (_cursorPosition - GlobalPosition).Normalized();
 
-	public override void _Input(InputEvent @event)
-	{
-		if (@event is InputEventKey eventKey)
-			MovementInput(eventKey);
+    private void MovementInput(InputEventKey eventKey)
+    {
+        Vector2 inputDirection = eventKey.PhysicalKeycode switch
+        {
+            Key.W => Vector2.Up,
+            Key.A => Vector2.Left,
+            Key.S => Vector2.Down,
+            Key.D => Vector2.Right,
+            _ => Vector2.Zero,
+        };
 
-		_moveDirection = _moveDirection.Clamp(-Vector2.One, Vector2.One);
+        if (eventKey.IsPressed() && !eventKey.IsEcho())
+            _moveDirection += inputDirection;
+        else if (eventKey.IsReleased())
+            _moveDirection -= inputDirection;
+    }
 
-		// Move direction is not normalized to avoid breaking input.
-		_character.TargetDirection = _moveDirection;
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventKey eventKey)
+            MovementInput(eventKey);
 
-		if (@event.IsActionPressed("throw", false, true))
-		{
-			_thrower.Throw((_cursorPosition - _thrower.GlobalPosition).Normalized());
-		}
-	}
+        if (Frozen)
+        {
+            _character.TargetDirection = Vector2.Zero;
+            return;
+        }
 
-	public override void _Process(double delta)
-	{
-		_cursorPosition = GetGlobalMousePosition();
-	}
+        _moveDirection = _moveDirection.Clamp(-Vector2.One, Vector2.One);
+
+        // Move direction is not normalized to avoid breaking input.
+        _character.TargetDirection = _moveDirection;
+
+        if (@event.IsActionPressed("repel", false, true))
+        {
+            if (_cooldown <= 0f)
+                _cooldown = _repeller.Repel(_cursorPosition);
+        }
+        //if (@event.IsActionPressed("throw", false, true))
+        //	_thrower.Throw(Aim);
+    }
+
+    public override void _Ready()
+    {
+        _character = GetParent<Character>();
+    }
+
+
+    public override void _Process(double delta)
+    {
+        _cursorPosition = GetGlobalMousePosition();
+        _cooldown -= (float)delta * 1000f;
+    }
+
+    private void _OnHurtboxDeath()
+    {
+        GetTree().ReloadCurrentScene();
+    }
 }

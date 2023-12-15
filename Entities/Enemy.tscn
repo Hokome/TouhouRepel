@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://c58ub03s7vija"]
+
+[ext_resource type="Script" path="res://Entities/Character.cs" id="1_ausjo"]
+[ext_resource type="Script" path="res://Entities/EnemyController.cs" id="2_g4kn5"]
+[ext_resource type="PackedScene" uid="uid://esbumj7d248t" path="res://Entities/Thrower.tscn" id="3_8qpnh"]
+[ext_resource type="Texture2D" uid="uid://bujpq6v6jgb7s" path="res://Prototyping/circle.png" id="4_680bg"]
+[ext_resource type="PackedScene" uid="uid://bymb4yl01plpy" path="res://Entities/Hurtbox.tscn" id="5_ydp5p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3rfo8"]
+
+[node name="Enemy" type="RigidBody2D"]
+collision_layer = 2
+script = ExtResource("1_ausjo")
+_baseAcceleration = 0.0
+_faction = 1
+
+[node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("_thrower", "_timer")]
+script = ExtResource("2_g4kn5")
+_thrower = NodePath("../Thrower")
+_timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="EnemyController"]
+autostart = true
+
+[node name="Thrower" parent="." instance=ExtResource("3_8qpnh")]
+_throwForce = 10000.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.380392, 0.380392, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_680bg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3rfo8")
+
+[node name="Hurtbox" parent="." instance=ExtResource("5_ydp5p")]
+_maxHealth = 5
+
+[connection signal="Death" from="Hurtbox" to="." method="_OnHurtboxDeath"]
