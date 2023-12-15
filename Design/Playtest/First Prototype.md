@@ -26,7 +26,7 @@ __Notes:__
 - Confused by the pause in the middle
 - The straight line seems satisfaying
 - **I think it's hard to not get touched while you're focusing on shooting down enemies.**
-- **Aiming is really hard**
+- **"Aiming is really hard"**
 - He does seem to like the challenge.
 - "This is just like my first time playing dark souls".
 - He didn't seem to notice the bullet patterns
@@ -65,4 +65,8 @@ It was fun figuring out patterns and learning the game
 
 __Conclusion:__
 
-MAKE THE ENEMIES BIGGER
+- __Make the enemies bigger__ so the player doesn't have to aim too precisely which also means bounce shots are more reliable.
+- Make repel timing and hitbox more forgiving so the player can focus more on positioning and attacking.
+- Objective should be clearer.
+- Make opportunities for straight lines and shots that kill multiple enemies.
+- The game seems like a good challenge type of game, like dark souls, which was intended.
