@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://c6rgc3817yff6"]
+
+[ext_resource type="Script" path="res://Entities/Components/Character.cs" id="1_3mob0"]
+[ext_resource type="Script" path="res://Entities/Player/PlayerController.cs" id="2_s1ior"]
+[ext_resource type="Texture2D" uid="uid://bujpq6v6jgb7s" path="res://Prototyping/circle.png" id="3_l0jy1"]
+[ext_resource type="PackedScene" uid="uid://b4a8vsxxn48kv" path="res://Entities/Components/Thrower.tscn" id="4_emri0"]
+[ext_resource type="PackedScene" uid="uid://db7tpgkdv6oov" path="res://Entities/Components/Repeller.tscn" id="5_n5v3e"]
+[ext_resource type="PackedScene" uid="uid://bymb4yl01plpy" path="res://Entities/Components/Hurtbox.tscn" id="6_74grr"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ggiee"]
+friction = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5xpq7"]
+radius = 16.0
+
+[node name="Player" type="RigidBody2D"]
+collision_layer = 2
+mass = 56.0
+inertia = 1.0
+physics_material_override = SubResource("PhysicsMaterial_ggiee")
+lock_rotation = true
+script = ExtResource("1_3mob0")
+_baseAcceleration = 1200.0
+_maxSpeed = 300.0
+_velocityZeroSnap = 10.0
+
+[node name="PlayerController" type="Node2D" parent="." node_paths=PackedStringArray("_repeller", "_thrower")]
+script = ExtResource("2_s1ior")
+_repeller = NodePath("../Repeller")
+_thrower = NodePath("../Thrower")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_l0jy1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5xpq7")
+
+[node name="Thrower" parent="." instance=ExtResource("4_emri0")]
+
+[node name="Repeller" parent="." instance=ExtResource("5_n5v3e")]
+
+[node name="Hurtbox" parent="." instance=ExtResource("6_74grr")]
+_maxHealth = 10
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(445, -181)
+
+[connection signal="Death" from="Hurtbox" to="PlayerController" method="_OnHurtboxDeath"]

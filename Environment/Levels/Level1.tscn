@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjiry7e3b10mt"]
+
+[ext_resource type="PackedScene" uid="uid://b136g8alwuj1l" path="res://Environment/Props/Room.tscn" id="1_7m4vr"]
+[ext_resource type="PackedScene" uid="uid://ii2glwxo8fdy" path="res://Environment/Props/Wall.tscn" id="2_gc77w"]
+
+[node name="Level1" type="Node2D"]
+
+[node name="Room" parent="." instance=ExtResource("1_7m4vr")]
+
+[node name="Wall" parent="Room" instance=ExtResource("2_gc77w")]
+position = Vector2(-570, 0)
+Size = Vector2(50, 700)
+
+[node name="Wall2" parent="Room" instance=ExtResource("2_gc77w")]
+position = Vector2(570, 0)
+Size = Vector2(50, 700)
+
+[node name="Wall3" parent="Room" instance=ExtResource("2_gc77w")]
+position = Vector2(0, -320)
+Size = Vector2(1200, 50)
+
+[node name="Wall4" parent="Room" instance=ExtResource("2_gc77w")]
+position = Vector2(0, 320)
+Size = Vector2(1200, 50)

@@ -2,7 +2,6 @@ using Godot;
 
 public partial class MainMenu : Control
 {
-
     [Export] private CanvasItem _infoBackground;
 
     public void _OnStartButtonPressed()

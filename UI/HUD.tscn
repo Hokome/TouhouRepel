@@ -1,0 +1,85 @@
+[gd_scene load_steps=4 format=3 uid="uid://ns630lfkvpla"]
+
+[ext_resource type="Theme" uid="uid://dudkg1cu516dw" path="res://UI/HealthBar.tres" id="1_08hc7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnyr1"]
+bg_color = Color(0.207843, 0.0823529, 0.0901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tym8u"]
+bg_color = Color(1, 0.168627, 0.168627, 1)
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="Frame" type="Control" parent="."]
+layout_mode = 3
+anchor_left = 0.021
+anchor_top = 0.04
+anchor_right = 1.021
+anchor_bottom = 1.04
+offset_left = -24.192
+offset_top = -25.92
+offset_right = -24.192
+offset_bottom = -25.92
+
+[node name="ProgressBar" type="ProgressBar" parent="Frame"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 30.0
+theme = ExtResource("1_08hc7")
+theme_override_styles/background = SubResource("StyleBoxFlat_lnyr1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tym8u")
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="EndRect" type="ColorRect" parent="Frame"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[node name="ColorRect" type="ColorRect" parent="Frame/EndRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -40.0
+offset_right = 30.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.270588, 0.270588, 0.270588, 1)
+
+[node name="Button" type="Button" parent="Frame/EndRect/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Again"
+flat = true
+
+[node name="Label" type="Label" parent="Frame/EndRect"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 5.0
+offset_bottom = 31.0
+grow_horizontal = 2
+text = "You won!"
+horizontal_alignment = 1

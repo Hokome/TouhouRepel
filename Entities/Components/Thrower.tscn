@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://esbumj7d248t"]
+[gd_scene load_steps=3 format=3 uid="uid://b4a8vsxxn48kv"]
 
-[ext_resource type="Script" path="res://Entities/Thrower.cs" id="1_8h5ra"]
+[ext_resource type="Script" path="res://Entities/Components/Thrower.cs" id="1_8h5ra"]
 [ext_resource type="PackedScene" uid="uid://dpei35txn33em" path="res://Projectiles/Projectile.tscn" id="2_nqluv"]
 
 [node name="Thrower" type="Node2D"]

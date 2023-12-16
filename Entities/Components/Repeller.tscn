@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://db7tpgkdv6oov"]
+
+[ext_resource type="Script" path="res://Entities/Components/Repeller.cs" id="1_q0cg5"]
+[ext_resource type="Texture2D" uid="uid://bujpq6v6jgb7s" path="res://Prototyping/circle.png" id="2_lqbsj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7p1g8"]
+radius = 27.0
+
+[node name="Repeller" type="Area2D" node_paths=PackedStringArray("_sprite")]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_q0cg5")
+_repelForce = 300.0
+_sprite = NodePath("Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 10
+position = Vector2(25, 0)
+shape = SubResource("CircleShape2D_7p1g8")
+debug_color = Color(0.827451, 0, 0.952941, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 0.65098, 0.694118, 0.294118)
+position = Vector2(25, 0)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_lqbsj")

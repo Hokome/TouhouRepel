@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://c58ub03s7vija"]
 
-[ext_resource type="Script" path="res://Entities/Character.cs" id="1_ausjo"]
-[ext_resource type="Script" path="res://Entities/EnemyController.cs" id="2_g4kn5"]
-[ext_resource type="PackedScene" uid="uid://esbumj7d248t" path="res://Entities/Thrower.tscn" id="3_8qpnh"]
+[ext_resource type="Script" path="res://Entities/Components/Character.cs" id="1_ausjo"]
+[ext_resource type="Script" path="res://Entities/Enemies/EnemyController.cs" id="2_vwufd"]
+[ext_resource type="PackedScene" uid="uid://esbumj7d248t" path="res://Entities/Components/Thrower.tscn" id="3_8qpnh"]
 [ext_resource type="Texture2D" uid="uid://bujpq6v6jgb7s" path="res://Prototyping/circle.png" id="4_680bg"]
-[ext_resource type="PackedScene" uid="uid://bymb4yl01plpy" path="res://Entities/Hurtbox.tscn" id="5_ydp5p"]
+[ext_resource type="PackedScene" uid="uid://bymb4yl01plpy" path="res://Entities/Components/Hurtbox.tscn" id="5_ydp5p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3rfo8"]
 
@@ -14,10 +14,10 @@ script = ExtResource("1_ausjo")
 _baseAcceleration = 0.0
 _faction = 1
 
-[node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("_thrower", "_timer")]
-script = ExtResource("2_g4kn5")
-_thrower = NodePath("../Thrower")
-_timer = NodePath("Timer")
+[node name="EnemyController" type="Node2D" parent="."]
+script = ExtResource("2_vwufd")
+_thrower = null
+_timer = null
 
 [node name="Timer" type="Timer" parent="EnemyController"]
 autostart = true
